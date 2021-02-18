@@ -9,6 +9,7 @@ namespace CrenixTeste
 	public class HUDGear : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 	{
 		[SerializeField] private Canvas canvas;
+		[SerializeField] private Transform parentTransform;
 		[SerializeField] private GearColor myGearColor;
 		[Range(0,1), SerializeField] private float alphaWhenDragging;
 
@@ -38,18 +39,20 @@ namespace CrenixTeste
 				if (hit.collider.TryGetComponent<GearPlace>(out var gear) && !gear.HasGear)
 				{
 					gear.PlaceGear(myGearColor,GetComponent<Image>().color);
-					SetGroup(0, false);
-					transform.parent.GetComponent<HUDSlot>().BlockDrag();
+					SetGroup(0);
+					if(transform.parent) transform.parent.GetComponent<HUDSlot>()?.BlockDrag();
 				}
 			}
-
-
 		}
 
-		private void SetGroup(float alpha, bool blockRaycasts)
+		public void Activate() => SetGroup(1f);
+		private void SetGroup(float alpha, bool blockRaycasts = true)
 		{
 			canvasGroup.alpha = alpha;
 			canvasGroup.blocksRaycasts = blockRaycasts;
+			//transform.parent = blockRaycasts ? parentTransform : null;
+			transform.SetParent(blockRaycasts ? parentTransform : canvas.transform);
+
 		}
 	}
 

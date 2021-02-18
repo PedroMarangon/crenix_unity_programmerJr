@@ -13,12 +13,32 @@ namespace CrenixTeste
 			{
 				draggedObj.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 			}
+			else if(draggedObj)
+			{
+				GetComponentInChildren<HUDGear>().Activate();
+			}
 
 			UnlockDrag();
 		}
 
-		public void BlockDrag() => GetComponentInChildren<HUDGear>().enabled = false;
-		public void UnlockDrag() => GetComponentInChildren<HUDGear>().enabled = false;
+		public void DropGearFromWorld()
+		{
+			GetComponentInChildren<HUDGear>().Activate();
+			UnlockDrag();
+		}
+
+		public void BlockDrag()
+		{
+			var hudGear = GetComponentInChildren<HUDGear>();
+
+			if (hudGear) hudGear.enabled = false;
+		}
+
+		public void UnlockDrag()
+		{
+			var hudGear = GetComponentInChildren<HUDGear>();
+			if(hudGear) hudGear.enabled = true;
+		}
 	}
 
 }

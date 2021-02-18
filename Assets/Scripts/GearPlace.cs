@@ -1,6 +1,7 @@
 ﻿// Maded by Pedro M Marangon
 using CrenixTeste;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace CrenixTeste
 {
@@ -17,6 +18,7 @@ namespace CrenixTeste
 		public bool HasGear => hasGear;
 		public bool CorrectColor => thisColor == thisCorrectColor;
 
+		public Color CurrentColor => rend.color;
 		
 		public void PlaceGear(GearColor color, Color rendColor)
 		{
@@ -24,6 +26,7 @@ namespace CrenixTeste
 			thisColor = color;
 
 			rend.color = rendColor;
+			hasGear = true;
 		}
 
 		public void RemoveGear()
@@ -32,6 +35,7 @@ namespace CrenixTeste
 			thisColor = GearColor.None;
 
 			rend.color = Color.white;
+			hasGear = false;
 		}
 
 	}
