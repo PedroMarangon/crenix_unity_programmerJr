@@ -1,6 +1,7 @@
 ﻿// Maded by Pedro M Marangon
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,10 +12,15 @@ namespace CrenixTeste
 	public class DraggingGearController : MonoBehaviour
     {
 
+		[Header("Gear (World -> HUD) Visual")]
         [SerializeField] private Transform worldGear;
         [SerializeField] private RectTransform uiGear;
+		[Header("HUD")]
 		[SerializeField] private Canvas canvas;
 		[SerializeField] private GraphicRaycaster raycaster;
+		[SerializeField] private TMP_Text speechText;
+		[SerializeField] private string speech_notCompleted;
+		[SerializeField] private string speech_completed;
 		[Header("Gears")]
 		[SerializeField] private Gear pinkGear;
 		[SerializeField] private Gear yellowGear;
@@ -24,18 +30,52 @@ namespace CrenixTeste
 		private GearPlace gearSelected;
 		private bool isDraggingPlaceWithGear;
 		private GameObject gearPlaced;
+		private int totalGearsPlacedCorrectly = 0;
 
-
-		private void Update()
+		public void ResetAllGears()
 		{
-			if (Input.GetMouseButtonDown(0))
-				SelectGear();
+			pinkGear.Reset();
+			yellowGear.Reset();
+			blueGear.Reset();
+			greenGear.Reset();
+			purpleGear.Reset();
+		}
+		
+		public void VerifyIfPlacedOnCorrectColor()
+		{
+			totalGearsPlacedCorrectly = 0;
 
-			if (Input.GetMouseButton(0) && isDraggingPlaceWithGear)
-				DragGear();
+			if (pinkGear.place.HasGear)
+				totalGearsPlacedCorrectly ++;
 
-			else if (Input.GetMouseButtonUp(0) && isDraggingPlaceWithGear)
-				DropGear();
+			if (yellowGear.place.HasGear)
+				totalGearsPlacedCorrectly++;
+
+			if (purpleGear.place.HasGear)
+				totalGearsPlacedCorrectly++;
+
+			if (blueGear.place.HasGear)
+				totalGearsPlacedCorrectly++;
+
+			if (greenGear.place.HasGear)
+				totalGearsPlacedCorrectly++;
+
+			VerifyRotator();
+		}
+		private void VerifyRotator()
+		{
+			totalGearsPlacedCorrectly = Mathf.Clamp(totalGearsPlacedCorrectly, 0, 5);
+			if (totalGearsPlacedCorrectly == 5) AllGearsState(speech_completed,true);
+			else AllGearsState(speech_notCompleted,false);
+		}
+		private void AllGearsState(string text, bool enabled)
+		{
+			speechText.text = text;
+			pinkGear.rotator.enabled = enabled;
+			yellowGear.rotator.enabled = enabled;
+			blueGear.rotator.enabled = enabled;
+			greenGear.rotator.enabled = enabled;
+			purpleGear.rotator.enabled = enabled;
 		}
 
 		//Manipulate gears
@@ -79,7 +119,10 @@ namespace CrenixTeste
 				}
 				else if (results[0].gameObject.TryGetComponent<HUDSlot>(out var slot))
 					PlaceInInventory(slot);
+
 				else ReturnGearToWorld();
+
+				VerifyIfPlacedOnCorrectColor();
 
 				gearPlaced.SetActive(true);
 			}
@@ -134,13 +177,16 @@ namespace CrenixTeste
 			return results;
 		}
 
-		public void ResetAllGears()
+		private void Update()
 		{
-			pinkGear.Reset();
-			yellowGear.Reset();
-			blueGear.Reset();
-			greenGear.Reset();
-			purpleGear.Reset();
+			if (Input.GetMouseButtonDown(0))
+				SelectGear();
+
+			if (Input.GetMouseButton(0) && isDraggingPlaceWithGear)
+				DragGear();
+
+			else if (Input.GetMouseButtonUp(0) && isDraggingPlaceWithGear)
+				DropGear();
 		}
 	}
 
@@ -160,20 +206,8 @@ namespace CrenixTeste
 		public void Reset()
 		{
 			rotator.enabled = false;
-
 			place.RemoveGear();
-
 			slot.DropGearFromWorld();
-
-		}
-
-		public bool Matches(HUDSlot requestedSlot, GearColor requestedGearColor)
-		{
-			bool slotMatch = requestedSlot == slot;
-			bool gcMatch = requestedGearColor == gearColor;
-
-			return gcMatch && slotMatch;
-
 		}
 
 		public bool MatchGearColor(GearColor requestedGearColor) => requestedGearColor == gearColor;

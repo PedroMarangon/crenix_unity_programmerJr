@@ -13,6 +13,7 @@ namespace CrenixTeste
 		[SerializeField] private GearColor thisCorrectColor;
 		[SerializeField] private SpriteRenderer rend;
 		[SerializeField] private bool hasGear;
+		[SerializeField] private DraggingGearController controller;
 		private GearColor thisColor;
 
 		public bool HasGear => hasGear;
@@ -29,6 +30,9 @@ namespace CrenixTeste
 
 			rend.color = rendColor;
 			hasGear = true;
+
+			controller.VerifyIfPlacedOnCorrectColor();
+
 		}
 
 		public void RemoveGear()
