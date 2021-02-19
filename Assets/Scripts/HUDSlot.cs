@@ -6,38 +6,50 @@ namespace CrenixTeste
 {
 	public class HUDSlot : MonoBehaviour, IDropHandler
 	{
+
+		private HUDGear gear;
+
+		private void Awake() => gear = GetComponentInChildren<HUDGear>();
+
+
 		public void OnDrop(PointerEventData eventData)
 		{
 			GameObject draggedObj = eventData.pointerDrag;
-			if (draggedObj && draggedObj.TryGetComponent<HUDGear>(out var gear))
+			if (draggedObj && draggedObj.TryGetComponent<HUDGear>(out var hudG))
 			{
 				draggedObj.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+				hudG.PutInInventory();
 			}
 			else if(draggedObj)
 			{
-				GetComponentInChildren<HUDGear>().Activate();
+				gear.Activate();
+				gear.PutInInventory();
 			}
+
 
 			UnlockDrag();
 		}
 
-		public void DropGearFromWorld()
+		public bool DropGearFromWorld()
 		{
-			GetComponentInChildren<HUDGear>().Activate();
+			if (gear && gear.IsInInventory) return false;
+						
+
+			gear.Activate();
+			gear.PutInInventory();
 			UnlockDrag();
+
+			return true;
 		}
 
 		public void BlockDrag()
 		{
-			var hudGear = GetComponentInChildren<HUDGear>();
-
-			if (hudGear) hudGear.enabled = false;
+			if (gear) gear.enabled = false;
 		}
 
 		public void UnlockDrag()
 		{
-			var hudGear = GetComponentInChildren<HUDGear>();
-			if(hudGear) hudGear.enabled = true;
+			if(gear) gear.enabled = true;
 		}
 	}
 

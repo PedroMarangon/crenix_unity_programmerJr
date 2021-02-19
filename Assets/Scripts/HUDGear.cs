@@ -1,4 +1,5 @@
 ﻿// Maded by Pedro M Marangon
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,8 +17,13 @@ namespace CrenixTeste
 		private RectTransform rectTransform;
 		private CanvasGroup canvasGroup;
 
+		public void PutInInventory() => IsInInventory = true;
+
+		public bool IsInInventory { get; private set; }
+
 		private void Awake()
 		{
+			IsInInventory = true;
 			rectTransform = GetComponent<RectTransform>();
 			canvasGroup = GetComponent<CanvasGroup>();
 		}
@@ -41,7 +47,12 @@ namespace CrenixTeste
 					gear.PlaceGear(myGearColor,GetComponent<Image>().color);
 					SetGroup(0);
 					if(transform.parent) transform.parent.GetComponent<HUDSlot>()?.BlockDrag();
+					IsInInventory = false;
 				}
+			}
+			else
+			{
+				rectTransform.anchoredPosition = Vector2.zero;
 			}
 		}
 

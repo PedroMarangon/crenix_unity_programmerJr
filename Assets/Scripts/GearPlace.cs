@@ -19,6 +19,8 @@ namespace CrenixTeste
 		public bool CorrectColor => thisColor == thisCorrectColor;
 
 		public Color CurrentColor => rend.color;
+		public Color OldColor { get; private set; }
+		public GearColor OldGearColor { get; private set; }
 		
 		public void PlaceGear(GearColor color, Color rendColor)
 		{
@@ -32,7 +34,11 @@ namespace CrenixTeste
 		public void RemoveGear()
 		{
 			rend.enabled = false;
+
+			OldGearColor = thisColor;
 			thisColor = GearColor.None;
+
+			OldColor = rend.color;
 
 			rend.color = Color.white;
 			hasGear = false;

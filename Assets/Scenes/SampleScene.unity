@@ -1780,7 +1780,7 @@ GameObject:
   - component: {fileID: 1044237204}
   - component: {fileID: 1044237203}
   m_Layer: 5
-  m_Name: UI_Img_Racoon
+  m_Name: UI_Img_Nugget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2060,7 +2060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 2000770614}
   parentTransform: {fileID: 982366857}
-  myGearColor: 3
+  myGearColor: 4
   alphaWhenDragging: 0.6
 --- !u!225 &1141697199
 CanvasGroup:
@@ -3215,7 +3215,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1695796090}
   - component: {fileID: 1695796089}
-  - component: {fileID: 1695796091}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -3239,6 +3238,41 @@ MonoBehaviour:
   uiGear: {fileID: 481174686}
   canvas: {fileID: 2000770614}
   raycaster: {fileID: 2000770612}
+  pinkGear:
+    slot: {fileID: 103055437}
+    gear: {fileID: 603608308}
+    rotator: {fileID: 1079317223}
+    place: {fileID: 1932753258}
+    gearColor: 1
+    color: {r: 1, g: 0, b: 0.7333336, a: 1}
+  yellowGear:
+    slot: {fileID: 1666312997}
+    gear: {fileID: 1264689644}
+    rotator: {fileID: 981580378}
+    place: {fileID: 1204160463}
+    gearColor: 2
+    color: {r: 1, g: 0.989607, b: 0, a: 1}
+  blueGear:
+    slot: {fileID: 982366860}
+    gear: {fileID: 1141697198}
+    rotator: {fileID: 1695579974}
+    place: {fileID: 301716998}
+    gearColor: 4
+    color: {r: 0.33490568, g: 0.35205165, b: 1, a: 1}
+  greenGear:
+    slot: {fileID: 1926728056}
+    gear: {fileID: 948519262}
+    rotator: {fileID: 1499017556}
+    place: {fileID: 1419315289}
+    gearColor: 5
+    color: {r: 0.0036325455, g: 1, b: 0, a: 1}
+  purpleGear:
+    slot: {fileID: 1750128772}
+    gear: {fileID: 100878865}
+    rotator: {fileID: 105322993}
+    place: {fileID: 1253569654}
+    gearColor: 3
+    color: {r: 0.6953268, g: 0, b: 1, a: 1}
 --- !u!4 &1695796090
 Transform:
   m_ObjectHideFlags: 0
@@ -3253,18 +3287,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1695796091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1695796088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e89f96be055b7ad4e80616babf05f25e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1750128768
 GameObject:
   m_ObjectHideFlags: 0
@@ -3973,7 +3995,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2077905151}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1695796089}
+        m_MethodName: ResetAllGears
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2077905151
 MonoBehaviour:
   m_ObjectHideFlags: 0
