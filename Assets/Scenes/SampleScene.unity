@@ -567,7 +567,7 @@ GameObject:
   m_Layer: 0
   m_Name: Gear Place - BLUE
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -618,6 +618,7 @@ MonoBehaviour:
   thisCorrectColor: 4
   rend: {fileID: 1854621567}
   hasGear: 0
+  controller: {fileID: 1695796089}
 --- !u!1 &375979264
 GameObject:
   m_ObjectHideFlags: 0
@@ -2175,7 +2176,7 @@ GameObject:
   m_Layer: 0
   m_Name: Gear Place - YELLOW
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2226,6 +2227,7 @@ MonoBehaviour:
   thisCorrectColor: 2
   rend: {fileID: 856042575}
   hasGear: 0
+  controller: {fileID: 1695796089}
 --- !u!1 &1253569651
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,7 +2242,7 @@ GameObject:
   m_Layer: 0
   m_Name: Gear Place - PURPLE
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2291,6 +2293,7 @@ MonoBehaviour:
   thisCorrectColor: 3
   rend: {fileID: 85409813}
   hasGear: 0
+  controller: {fileID: 1695796089}
 --- !u!1 &1264689640
 GameObject:
   m_ObjectHideFlags: 0
@@ -2543,7 +2546,7 @@ GameObject:
   m_Layer: 0
   m_Name: Gear Place - GREEN
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2594,6 +2597,7 @@ MonoBehaviour:
   thisCorrectColor: 4
   rend: {fileID: 64001035}
   hasGear: 0
+  controller: {fileID: 1695796089}
 --- !u!1 &1466696254
 GameObject:
   m_ObjectHideFlags: 0
@@ -3238,41 +3242,45 @@ MonoBehaviour:
   uiGear: {fileID: 481174686}
   canvas: {fileID: 2000770614}
   raycaster: {fileID: 2000770612}
+  speechText: {fileID: 1593734332}
+  speech_notCompleted: Encaixe as engrenagens em qualquer ordem
+  speech_completed: "Yay, parab\xE9ns. Task conclu\xEDda!"
   pinkGear:
-    slot: {fileID: 103055437}
-    gear: {fileID: 603608308}
     rotator: {fileID: 1079317223}
+    hudGear: {fileID: 0}
     place: {fileID: 1932753258}
     gearColor: 1
     color: {r: 1, g: 0, b: 0.7333336, a: 1}
   yellowGear:
-    slot: {fileID: 1666312997}
-    gear: {fileID: 1264689644}
     rotator: {fileID: 981580378}
+    hudGear: {fileID: 0}
     place: {fileID: 1204160463}
     gearColor: 2
     color: {r: 1, g: 0.989607, b: 0, a: 1}
   blueGear:
-    slot: {fileID: 982366860}
-    gear: {fileID: 1141697198}
     rotator: {fileID: 1695579974}
+    hudGear: {fileID: 0}
     place: {fileID: 301716998}
     gearColor: 4
     color: {r: 0.33490568, g: 0.35205165, b: 1, a: 1}
   greenGear:
-    slot: {fileID: 1926728056}
-    gear: {fileID: 948519262}
     rotator: {fileID: 1499017556}
+    hudGear: {fileID: 0}
     place: {fileID: 1419315289}
     gearColor: 5
     color: {r: 0.0036325455, g: 1, b: 0, a: 1}
   purpleGear:
-    slot: {fileID: 1750128772}
-    gear: {fileID: 100878865}
     rotator: {fileID: 105322993}
+    hudGear: {fileID: 0}
     place: {fileID: 1253569654}
     gearColor: 3
     color: {r: 0.6953268, g: 0, b: 1, a: 1}
+  hudGears:
+  - {fileID: 1141697198}
+  - {fileID: 948519262}
+  - {fileID: 603608308}
+  - {fileID: 100878865}
+  - {fileID: 1264689644}
 --- !u!4 &1695796090
 Transform:
   m_ObjectHideFlags: 0
@@ -3670,7 +3678,7 @@ GameObject:
   m_Layer: 0
   m_Name: Gear Place - PINK
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3721,6 +3729,7 @@ MonoBehaviour:
   thisCorrectColor: 1
   rend: {fileID: 1877064631}
   hasGear: 0
+  controller: {fileID: 1695796089}
 --- !u!1 &2000770611
 GameObject:
   m_ObjectHideFlags: 0

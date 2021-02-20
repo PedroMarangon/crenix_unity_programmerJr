@@ -27,6 +27,8 @@ namespace CrenixTeste
 		[SerializeField] private Gear blueGear;
 		[SerializeField] private Gear greenGear;
 		[SerializeField] private Gear purpleGear;
+		[SerializeField] private List<HUDGear> hudGears;
+
 		private GearPlace gearSelected;
 		private bool isDraggingPlaceWithGear;
 		private GameObject gearPlaced;
@@ -39,25 +41,55 @@ namespace CrenixTeste
 			blueGear.Reset();
 			greenGear.Reset();
 			purpleGear.Reset();
+
+			foreach (HUDGear gear in hudGears)
+			{
+				switch (gear.MyGearColor)
+				{
+					case GearColor.None:
+						gear.SetColor(Color.white);
+						break;
+					case GearColor.Pink:
+						gear.SetColor(pinkGear.color);
+						break;
+					case GearColor.Yellow:
+						gear.SetColor(yellowGear.color);
+						break;
+					case GearColor.Purple:
+						gear.SetColor(purpleGear.color);
+						break;
+					case GearColor.Blue:
+						gear.SetColor(blueGear.color);
+						break;
+					case GearColor.Green:
+						gear.SetColor(greenGear.color);
+						break;
+				}
+
+				gear.SetGroup(1);
+				gear.enabled = true;
+			}
+
 		}
 		
+		//Verification
 		public void VerifyIfPlacedOnCorrectColor()
 		{
 			totalGearsPlacedCorrectly = 0;
 
-			if (pinkGear.place.HasGear)
+			if (pinkGear.IsCorrect())
 				totalGearsPlacedCorrectly ++;
 
-			if (yellowGear.place.HasGear)
+			if (yellowGear.IsCorrect())
 				totalGearsPlacedCorrectly++;
 
-			if (purpleGear.place.HasGear)
+			if (purpleGear.IsCorrect())
 				totalGearsPlacedCorrectly++;
 
-			if (blueGear.place.HasGear)
+			if (blueGear.IsCorrect())
 				totalGearsPlacedCorrectly++;
 
-			if (greenGear.place.HasGear)
+			if (greenGear.IsCorrect())
 				totalGearsPlacedCorrectly++;
 
 			VerifyRotator();
@@ -193,11 +225,8 @@ namespace CrenixTeste
 	[Serializable]
 	public class Gear
 	{
-		[Header("HUD")]
-		public HUDSlot slot;
-		public HUDGear gear;
-		[Header("World")]
 		public GearRotator rotator;
+		public HUDGear hudGear;
 		public GearPlace place;
 		[Header("Color")]
 		public GearColor gearColor;
@@ -207,10 +236,19 @@ namespace CrenixTeste
 		{
 			rotator.enabled = false;
 			place.RemoveGear();
-			slot.DropGearFromWorld();
 		}
 
 		public bool MatchGearColor(GearColor requestedGearColor) => requestedGearColor == gearColor;
+
+		public bool IsCorrect()
+		{
+			SpriteRenderer rot = rotator.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+			bool hasGear = place.HasGear;
+			bool correctColor = rot.color == color;
+
+			return hasGear && correctColor;
+		}
 	}
 
 }

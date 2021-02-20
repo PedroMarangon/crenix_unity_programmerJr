@@ -7,6 +7,7 @@ using UnityEngine.UI;
 namespace CrenixTeste
 {
 	[RequireComponent(typeof(CanvasGroup))]
+	[RequireComponent(typeof(Image))]
 	public class HUDGear : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 	{
 		[SerializeField] private Canvas canvas;
@@ -17,9 +18,10 @@ namespace CrenixTeste
 		private RectTransform rectTransform;
 		private CanvasGroup canvasGroup;
 
-		public void PutInInventory() => IsInInventory = true;
-
+		public GearColor MyGearColor => myGearColor;
 		public bool IsInInventory { get; private set; }
+
+		public void PutInInventory() => IsInInventory = true;
 
 		private void Awake()
 		{
@@ -27,6 +29,8 @@ namespace CrenixTeste
 			rectTransform = GetComponent<RectTransform>();
 			canvasGroup = GetComponent<CanvasGroup>();
 		}
+
+		public void SetColor(Color color) => GetComponent<Image>().color = color;
 
 		public void OnBeginDrag(PointerEventData eventData) => SetGroup(alphaWhenDragging, false);
 		public void OnDrag(PointerEventData eventData) => rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
@@ -57,7 +61,7 @@ namespace CrenixTeste
 		}
 
 		public void Activate() => SetGroup(1f);
-		private void SetGroup(float alpha, bool blockRaycasts = true)
+		public void SetGroup(float alpha, bool blockRaycasts = true)
 		{
 			canvasGroup.alpha = alpha;
 			canvasGroup.blocksRaycasts = blockRaycasts;
